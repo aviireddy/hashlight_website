@@ -237,8 +237,15 @@ document.addEventListener('DOMContentLoaded', () => {
       tiles.forEach(tile => {
         const video = tile.querySelector('.reel-tile-video');
         if (!video) return;
+        // preload="metadata" alone doesn't reliably paint a visible frame in
+        // every browser — nudging currentTime forces an actual frame decode,
+        // so the thumbnail is genuinely visible at rest instead of black
+        const paintFirstFrame = () => { if (video.currentTime === 0) video.currentTime = 0.05; };
+        if (video.readyState >= 1) paintFirstFrame();
+        else video.addEventListener('loadedmetadata', paintFirstFrame, { once: true });
+
         tile.addEventListener('mouseenter', () => { video.play?.().catch(() => {}); });
-        tile.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+        tile.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; paintFirstFrame(); });
       });
     } else {
       const playReelVideos = () => {
@@ -330,12 +337,15 @@ document.addEventListener('DOMContentLoaded', () => {
     dial.appendChild(face);
     document.body.appendChild(dial);
 
-    // each hole's home angle around the disc — fixed, evenly spaced, going
-    // anticlockwise (negative, since increasing angle in screen-space sweeps
-    // clockwise); the ring's own CSS rotation is what moves (and tilts)
-    // them, like a real spinning disc
+    // each hole's home angle around the disc — fixed, evenly spaced. Desktop
+    // numbers run anticlockwise (negative step); mobile deliberately mirrors
+    // that (positive step), so its numbering — and the physical drag
+    // direction that advances pages — is the opposite of desktop's. The
+    // ring's own CSS rotation is what moves (and tilts) them, like a real
+    // spinning disc.
     const holes = [];
-    const holesBase = sections.map((_, i) => -i * (360 / N));
+    const computeHolesBase = () => sections.map((_, i) => (isMobile() ? 1 : -1) * i * (360 / N));
+    let holesBase = computeHolesBase();
 
     sections.forEach((sec, i) => {
       const label = sec.getAttribute('data-dial') || ('Section ' + (i + 1));
@@ -488,6 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
     face.addEventListener('pointercancel', endDrag);
 
     window.addEventListener('resize', () => {
+      holesBase = computeHolesBase(); // numbering direction flips at the mobile breakpoint
       layoutHoles();
       theta = thetaForIndex(activeIndex, theta);
       setRingTransform(false);
@@ -528,9 +539,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const rect = face.getBoundingClientRect();
         const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
         const R = rect.width / 2 * 1.18; // just outside the rim
-        // arc sweeps through the visible half of the dial, ending at the
-        // finger-stop side (pointerAngle) — desktop: west; mobile: north
-        const [startDeg, endDeg] = isMobile() ? [190, 350] : [260, 100];
+        // arc sweeps in whichever direction actually advances pages on this
+        // breakpoint — clockwise (increasing) on desktop, anticlockwise
+        // (decreasing) on mobile, since mobile's numbering is mirrored
+        const [startDeg, endDeg] = isMobile() ? [350, 190] : [100, 260];
         const steps = 32, pts = [];
         for (let i = 0; i <= steps; i++) {
           const deg = startDeg + (endDeg - startDeg) * (i / steps);

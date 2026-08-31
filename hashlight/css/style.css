@@ -177,6 +177,12 @@ section{ position:relative; }
   .nav-toggle.open span:nth-child(1){ transform:rotate(45deg) translate(5px,5px); }
   .nav-toggle.open span:nth-child(2){ opacity:0; }
   .nav-toggle.open span:nth-child(3){ transform:rotate(-45deg) translate(5px,-5px); }
+
+  /* "Start a project" in the top bar — 25% smaller on mobile only */
+  .nav-cta .js-start-project{
+    font-size:9.75px; padding:12px 19.5px; gap:7.5px;
+  }
+  .nav-cta .js-start-project svg{ width:10.5px; height:10.5px; }
 }
 
 /* ==========================================================================
@@ -337,6 +343,9 @@ section{ position:relative; }
 .about-grid{ display:grid; grid-template-columns:.9fr 1.1fr; gap:70px; padding-block:clamp(70px,9vw,120px); align-items:start; }
 @media (max-width:920px){ .about-grid{ grid-template-columns:1fr; gap:50px; } }
 .director-card{ border:1px solid var(--line-strong); border-radius:20px; overflow:hidden; position:sticky; top:120px; }
+/* sticky only makes sense in the two-column layout — in the stacked
+   single-column mobile layout it floats over the copy below while scrolling */
+@media (max-width:920px){ .director-card{ position:static; } }
 .director-photo{ aspect-ratio:4/5; background:
     radial-gradient(120% 90% at 15% 0%, rgba(255,194,75,.4), transparent 55%),
     radial-gradient(120% 90% at 90% 100%, rgba(62,142,255,.35), transparent 55%),
