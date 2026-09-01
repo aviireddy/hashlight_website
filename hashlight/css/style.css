@@ -142,7 +142,7 @@ section{ position:relative; }
 .site-nav.scrolled{ background:rgba(10,10,12,0.82); backdrop-filter:blur(14px); border-color:var(--line); padding-block:14px; }
 
 .logo{ font-family:var(--display); font-size:22px; letter-spacing:.01em; text-transform:uppercase; display:flex; align-items:center; gap:10px; }
-.logo-mark{ width:28px; height:28px; border-radius:8px; display:block; flex-shrink:0; }
+.logo-mark{ width:28px; height:28px; object-fit:contain; display:block; flex-shrink:0; }
 
 .nav-links{ display:flex; align-items:center; gap:36px; }
 .nav-links a{
