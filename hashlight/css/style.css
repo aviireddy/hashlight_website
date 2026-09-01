@@ -201,6 +201,16 @@ section{ position:relative; }
 .hero-grid{ display:grid; grid-template-columns:1.3fr .9fr; gap:60px; align-items:center; }
 @media (max-width:980px){ .hero-grid{ grid-template-columns:1fr; } }
 
+/* hero eyebrow — two centered lines, each flanked by a short line on both sides */
+.hero-eyebrow{ display:flex; flex-direction:column; align-items:center; gap:6px; text-align:center; }
+.hero-eyebrow span{
+  font-family:var(--mono); font-size:12px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--gold); display:inline-flex; align-items:center; gap:10px;
+}
+.hero-eyebrow span::before, .hero-eyebrow span::after{
+  content:''; width:16px; height:1px; background:var(--gold); display:inline-block;
+}
+
 .hero-title{ font-size:clamp(52px, 8.4vw, 118px); }
 .hero-title .flash{
   background:linear-gradient(100deg, var(--gold-bright) 20%, var(--gold) 40%, var(--blue) 65%, var(--gold-bright) 85%);
