@@ -156,6 +156,12 @@ section{ position:relative; }
 .nav-links a.active::before{ color:var(--gold); }
 
 .nav-cta{ display:flex; align-items:center; gap:22px; }
+/* "Start a project" in the top bar — 20% smaller on desktop only
+   (mobile has its own separate 25%-smaller rule further down) */
+@media (min-width:921px){
+  .nav-cta .js-start-project{ font-size:10.4px; padding:12.8px 20.8px; gap:8px; }
+  .nav-cta .js-start-project svg{ width:11.2px; height:11.2px; }
+}
 .rec-tag{ display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:11px; letter-spacing:.12em; color:var(--ink-dim); }
 .rec-dot{ width:6px; height:6px; border-radius:50%; background:#ff4d4d; animation:pulse 1.6s infinite; }
 @keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:.25; } }
