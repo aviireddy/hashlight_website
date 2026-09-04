@@ -90,9 +90,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .wrap{ max-width:var(--max); margin-inline:auto; padding-inline:var(--pad); }
 .eyebrow{
   font-family:var(--mono); font-size:12px; letter-spacing:.18em; text-transform:uppercase;
-  color:var(--gold); display:inline-flex; align-items:center; gap:10px;
+  color:var(--gold); display:inline-flex; align-items:center;
 }
-.eyebrow::before{ content:''; width:16px; height:1px; background:var(--gold); display:inline-block; }
 .text-dim{ color:var(--ink-dim); }
 .gold{ color:var(--gold); }
 .blue-text{ color:var(--blue); }
@@ -150,11 +149,11 @@ section{ position:relative; }
 .logo{ font-family:var(--display); font-size:22px; letter-spacing:.01em; text-transform:uppercase; display:flex; align-items:center; gap:10px; }
 .logo-mark{ width:28px; height:28px; object-fit:contain; display:block; flex-shrink:0; }
 
-.nav-sep{ color:var(--ink-faint); font-size:14px; line-height:1; opacity:.6; flex-shrink:0; }
+.nav-sep{ color:var(--ink-faint); font-size:14.7px; line-height:1; opacity:.6; flex-shrink:0; }
 
 .nav-links{ display:flex; align-items:center; gap:36px; }
 .nav-links a{
-  font-family:var(--mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-dim);
+  font-family:var(--mono); font-size:12.6px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-dim);
   position:relative; padding-bottom:4px; transition:color .3s var(--ease);
 }
 .nav-links a::before{ content: attr(data-index); color:var(--ink-faint); margin-right:6px; }
@@ -164,6 +163,7 @@ section{ position:relative; }
 .nav-links a.active::before{ color:var(--gold); }
 
 .nav-cta{ display:flex; align-items:center; gap:22px; }
+.nav-cta .rec-tag{ font-size:11.55px; }
 /* "Start a project" in the top bar — 20% smaller on desktop only
    (mobile has its own separate 25%-smaller rule further down) */
 @media (min-width:921px){
@@ -210,14 +210,11 @@ section{ position:relative; }
 .hero-grid{ display:grid; grid-template-columns:1.3fr .9fr; gap:60px; align-items:center; }
 @media (max-width:980px){ .hero-grid{ grid-template-columns:1fr; } }
 
-/* hero eyebrow — two centered lines, each flanked by a short line on both sides */
-.hero-eyebrow{ display:flex; flex-direction:column; align-items:center; gap:6px; text-align:center; }
+/* hero eyebrow — two left-aligned lines sitting flush above the headline */
+.hero-eyebrow{ display:flex; flex-direction:column; align-items:flex-start; gap:6px; text-align:left; }
 .hero-eyebrow span{
   font-family:var(--mono); font-size:12px; letter-spacing:.18em; text-transform:uppercase;
-  color:var(--gold); display:inline-flex; align-items:center; gap:10px;
-}
-.hero-eyebrow span::before, .hero-eyebrow span::after{
-  content:''; width:16px; height:1px; background:var(--gold); display:inline-block;
+  color:var(--gold); display:inline-flex; align-items:center;
 }
 
 .hero-title{ font-size:clamp(52px, 8.4vw, 118px); }
@@ -276,7 +273,11 @@ section{ position:relative; }
 /* ==========================================================================
    Marquee ticker
    ========================================================================== */
-.ticker-wrap{ border-top:1px solid var(--line); border-bottom:1px solid var(--line); overflow:hidden; padding:16px 0; background:var(--bg-alt); }
+.ticker-wrap{
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line); overflow:hidden; padding:16px 0;
+  background:rgba(16,16,20,.45);
+  backdrop-filter:blur(16px) saturate(150%); -webkit-backdrop-filter:blur(16px) saturate(150%);
+}
 .ticker{ display:flex; width:max-content; animation:tick 32s linear infinite; }
 .ticker span{
   font-family:var(--mono); font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-dim);
@@ -347,7 +348,10 @@ section{ position:relative; }
 .site-footer{ border-top:1px solid var(--line); padding-block:70px 34px; }
 
 /* rolling platforms banner — reuses the hero ticker's marquee animation */
-.footer-platforms{ overflow:hidden; padding-bottom:34px; margin-bottom:36px; border-bottom:1px solid var(--line); }
+.footer-platforms{
+  overflow:hidden; padding-bottom:34px; margin-bottom:36px; border-bottom:1px solid var(--line);
+  width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
+}
 .footer-platforms-track{ display:flex; width:max-content; animation:tick 26s linear infinite; }
 .footer-platforms-track > span{ display:flex; align-items:center; gap:48px; padding-right:48px; white-space:nowrap; }
 .footer-platform-item{
@@ -528,8 +532,9 @@ section{ position:relative; }
     conic-gradient(from 200deg, rgba(255,216,115,.10), transparent 28%, transparent 68%, rgba(62,142,255,.09), rgba(255,216,115,.10)),
     radial-gradient(circle at 30% 26%, rgba(244,242,237,.11), transparent 50%),
     radial-gradient(circle at 76% 82%, rgba(62,142,255,.06), transparent 60%),
-    linear-gradient(160deg, var(--bg-raised), #0c0c0f 78%);
+    linear-gradient(160deg, rgba(23,23,28,.55), rgba(12,12,15,.55) 78%);
   border:1px solid var(--line-strong);
+  backdrop-filter:blur(20px) saturate(160%); -webkit-backdrop-filter:blur(20px) saturate(160%);
   box-shadow:
     0 30px 80px -20px rgba(0,0,0,.75),
     0 0 44px -12px rgba(255,194,75,.10),
@@ -561,7 +566,8 @@ section{ position:relative; }
    together with the ring's rotation, like numbers printed on a spinning disc */
 .tel-dial-hole{
   position:absolute; width:42px; height:42px; margin:-21px 0 0 -21px; border-radius:50%;
-  background:var(--bg-alt); border:1px solid var(--line); color:var(--ink-dim);
+  background:rgba(16,16,20,.5); border:1px solid var(--line); color:var(--ink-dim);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
   font-family:var(--mono); font-size:14px; font-weight:500;
   display:flex; align-items:center; justify-content:center;
   box-shadow:
@@ -585,8 +591,9 @@ section{ position:relative; }
 .tel-dial-hub{
   position:absolute; left:50%; top:50%; width:56px; height:56px; margin:-28px 0 0 -28px;
   border-radius:50%; pointer-events:none;
-  background:linear-gradient(160deg, var(--bg-raised), #0c0c0f 80%);
+  background:linear-gradient(160deg, rgba(23,23,28,.6), rgba(12,12,15,.6) 80%);
   border:1px solid var(--line-strong);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
   box-shadow:0 4px 12px rgba(0,0,0,.5), inset 0 1px 0 rgba(244,242,237,.07);
   display:flex; align-items:center; justify-content:center;
 }
