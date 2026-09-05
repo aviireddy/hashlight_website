@@ -287,11 +287,11 @@ section{ position:relative; }
 }
 .ticker{ display:flex; width:max-content; animation:tick 32s linear infinite; }
 .ticker span{
-  font-family:var(--mono); font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-dim);
+  font-family:var(--mono); font-size:14px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-dim);
   padding-right:36px; display:flex; align-items:center; gap:36px; white-space:nowrap;
 }
 .ticker span b, .footer-platforms-track span b{ color:var(--gold); font-weight:600; }
-.ticker span i, .footer-platforms-track span i{ width:4px; height:4px; border-radius:50%; background:var(--ink-faint); display:inline-block; }
+.ticker span i, .footer-platforms-track span i{ width:5px; height:5px; border-radius:50%; background:var(--ink-faint); display:inline-block; }
 @keyframes tick{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
 
 /* ==========================================================================
@@ -351,7 +351,7 @@ section{ position:relative; }
 /* ==========================================================================
    Footer
    ========================================================================== */
-.site-footer{ border-top:1px solid var(--line); padding-block:56px 34px; }
+.site-footer{ border-top:1px solid var(--line); padding-block:24px 34px; }
 
 /* floating WhatsApp button — lives in the footer's markup (so it survives
    the page-panel split, since footer is never hidden) but is fixed to the
@@ -369,16 +369,19 @@ section{ position:relative; }
 
 /* rolling platforms banner — reuses the hero ticker's marquee animation */
 .footer-platforms{
-  overflow:hidden; padding-bottom:30.6px; margin-bottom:32.4px; border-bottom:1px solid var(--line);
+  overflow:hidden; padding-bottom:16px; margin-bottom:20px; border-bottom:1px solid var(--line);
   width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
 }
-.footer-platforms-track{ display:flex; width:max-content; animation:tick 71.5s linear infinite; }
-.footer-platforms-track > span{ display:flex; align-items:center; gap:48px; padding-right:48px; white-space:nowrap; }
+.footer-platforms-track{ display:flex; width:max-content; animation:tick 85.5s linear infinite; }
+.footer-platforms-track > span{
+  display:flex; align-items:center; gap:48px; padding-right:48px; white-space:nowrap;
+  font-family:var(--mono); font-size:17px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-dim);
+}
 .footer-platform-item{
   display:inline-flex; align-items:center; gap:10px;
-  font-family:var(--mono); font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-dim);
+  font-family:var(--mono); font-size:14px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-dim);
 }
-.footer-platform-item svg{ width:18px; height:18px; flex-shrink:0; }
+.footer-platform-item svg{ width:20px; height:20px; flex-shrink:0; }
 .footer-grid{ display:grid; grid-template-columns:1.4fr repeat(3,1fr); gap:40px; }
 @media (max-width:820px){ .footer-grid{ grid-template-columns:1fr 1fr; } }
 @media (max-width:560px){ .footer-grid{ grid-template-columns:1fr; } }
